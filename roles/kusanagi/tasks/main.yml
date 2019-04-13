@@ -13,6 +13,8 @@
   vars:
     packages:
     - wget
+    - expect
+    - php-cli
     - kusanagi
     - kusanagi-apr
     - kusanagi-apr-devel
