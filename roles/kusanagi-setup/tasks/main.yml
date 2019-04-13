@@ -1,0 +1,31 @@
+- name: check initializer
+  stat:
+    path: "/usr/local/sbin/setup_kusanagi.sh"
+  register: stat_setup_kusanagi
+
+- name: copy repo
+  copy:
+    src: ../files/setup.sh
+    dest: /usr/local/sbin/setup_kusanagi.sh
+    owner: root
+    group: root
+    mode: 0744
+  when: not stat_setup_kusanagi.stat.exists
+
+- name: execute initializer
+  shell: "LANG=C /bin/bash /usr/local/sbin/setup_kusanagi.sh 2>&1 | tee /root/setup_kusanagi.log"
+  when: not stat_setup_kusanagi.stat.exists
+
+- name: check provision helper
+  stat:
+    path: "/usr/local/sbin/provision-helper.sh"
+  register: stat_provision_helper
+
+- name: copy provision helper
+  copy:
+    src: ../files/provision-helper.sh
+    dest: /usr/local/sbin/provision-helper.sh
+    owner: root
+    group: root
+    mode: 0744
+  when: not stat_provision_helper.stat.exists

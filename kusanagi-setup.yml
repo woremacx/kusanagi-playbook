@@ -1,0 +1,4 @@
+- hosts: kusanagi
+  user: root
+  roles:
+    - role: kusanagi-setup
