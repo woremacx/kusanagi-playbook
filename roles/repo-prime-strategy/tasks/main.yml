@@ -1,0 +1,8 @@
+---
+- name: copy repo
+  copy:
+    src: ../files/prime-strategy.repo
+    dest: /etc/yum.repos.d/prime-strategy.repo
+    owner: root
+    group: root
+    mode: 0644

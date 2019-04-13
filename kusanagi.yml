@@ -1,0 +1,8 @@
+- hosts: kusanagi
+  user: root
+  roles:
+    - role: repo-remi
+    - role: repo-prime-strategy
+    - role: repo-mariadb
+    - role: mariadb
+    - role: kusanagi

@@ -1,0 +1,10 @@
+- name: ensure a list of packages installed
+  yum:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - MariaDB-client
+    - MariaDB-server
+    - MariaDB-devel
+    - MariaDB-common
+    - MariaDB-shared

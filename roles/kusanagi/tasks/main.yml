@@ -1,0 +1,21 @@
+- name: ensure a list of packages installed
+  yum:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - kusanagi
+    - kusanagi-apr
+    - kusanagi-apr-devel
+    - kusanagi-apr-util
+    - kusanagi-apr-util-devel
+    - kusanagi-hhvm
+    - kusanagi-httpd
+    - kusanagi-libzip
+    - kusanagi-mozjpeg
+    - kusanagi-nghttp2
+    - kusanagi-nginx
+    - kusanagi-openssl
+    - kusanagi-php7
+    - kusanagi-ruby2.4
+    - kusanagi-wp
+    - kusanagi-wp-cli

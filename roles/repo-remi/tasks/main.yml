@@ -1,0 +1,5 @@
+---
+- name: enable repo remi
+  yum:
+    name: http://ftp.riken.jp/Linux/remi/enterprise/remi-release-7.rpm
+    state: present
