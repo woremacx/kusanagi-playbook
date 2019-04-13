@@ -18,6 +18,7 @@
     name: "{{ packages }}"
   vars:
     packages:
+    - git
     - wget
     - expect
     - php-cli
@@ -37,3 +38,8 @@
     - kusanagi-ruby2.4
     - kusanagi-wp
     - kusanagi-wp-cli
+
+- name: git clone certbot
+  git:
+    repo: https://github.com/certbot/certbot.git
+    dest: /usr/local/certbot
