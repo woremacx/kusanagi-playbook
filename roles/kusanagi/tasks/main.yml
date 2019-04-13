@@ -1,11 +1,17 @@
 - name: create group
   group: name=www
 
+- name: create user
+  user: name=httpd groups=www state=present
+
 - name: create group
   group: name=kusanagi
 
 - name: create user
   user: name=kusanagi groups=kusanagi,www state=present
+
+- name: chmod
+  file: path=/home/kusanagi mode=0701
 
 - name: ensure a list of packages installed
   yum:
