@@ -1,8 +1,10 @@
 - hosts: kusanagi
   user: root
   roles:
+    - role: selinux
     - role: repo-remi
     - role: repo-prime-strategy
     - role: repo-mariadb
     - role: mariadb
+    - role: vsftpd
     - role: kusanagi
