@@ -8,3 +8,11 @@
     - MariaDB-devel
     - MariaDB-common
     - MariaDB-shared
+
+- name: enable and restart mariadb.service
+  systemd:
+    name: mariadb.service
+    state: restarted
+    daemon_reload: yes
+    enabled: yes
+  become: yes
