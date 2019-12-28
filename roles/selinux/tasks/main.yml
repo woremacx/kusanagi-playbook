@@ -4,3 +4,4 @@
   vars:
     packages:
     - libselinux-python
+    - audit

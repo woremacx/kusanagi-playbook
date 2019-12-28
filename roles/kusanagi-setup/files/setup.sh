@@ -11,20 +11,13 @@ password=`$mkp`
 passphrase=`$mkp`
 dbpassword=`$mkp`
 
-echo "SET PASSWORD = PASSWORD('$dbpassword')" | mysql -uroot
-
-cat <<EOF > /root/.my.cnf
-[mysqladmin]
-password = "$dbpassword"
-user = root
-EOF
-chmod 600 /root/.my.cnf
-
 cat <<EOF > /etc/kusanagi.conf
 PROFILE=""
 EOF
 
-kusanagi init \
+expect -c "
+set timeout -1
+spawn kusanagi init \
     --tz tokyo \
     --lang ja \
     --keyboard ja \
@@ -35,6 +28,21 @@ kusanagi init \
     --php7 \
     --ruby24 \
     --dbsystem mariadb
+expect \"Which you using?(1):\"
+send \"\n\"
+expect \"KUSANAGI initialization completed\"
+exit 0
+"
+
+# echo "SET PASSWORD = PASSWORD('$dbpassword')" | mysql -uroot
+if [ ! -e /root/.my.cnf ]; then
+cat <<EOF > /root/.my.cnf
+    [mysqladmin]
+    password = "$dbpassword"
+    user = root
+    EOF
+    chmod 600 /root/.my.cnf
+fi
 
 cat << EOF >> /etc/motd
 ================================================

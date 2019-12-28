@@ -43,3 +43,16 @@
   git:
     repo: https://github.com/certbot/certbot.git
     dest: /usr/local/certbot
+
+- name: check initializer
+  stat:
+    path: "/usr/local/sbin/setup_kusanagi.sh"
+  register: stat_setup_kusanagi
+
+- name: download initializer
+  get_url: url=https://raw.githubusercontent.com/ConoHa/startupscripts/master/scripts/setup_kusanagi.sh dest=/usr/local/sbin/setup_kusanagi.sh
+  when: not stat_setup_kusanagi.stat.exists
+
+- name: execute initializer
+  shell: "/bin/bash /usr/local/sbin/setup_kusanagi.sh"
+  when: not stat_setup_kusanagi.stat.exists
