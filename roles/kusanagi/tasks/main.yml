@@ -49,10 +49,37 @@
     path: "/usr/local/sbin/setup_kusanagi.sh"
   register: stat_setup_kusanagi
 
-- name: download initializer
-  get_url: url=https://raw.githubusercontent.com/ConoHa/startupscripts/master/scripts/setup_kusanagi.sh dest=/usr/local/sbin/setup_kusanagi.sh
+- name: copy repo
+  copy:
+    src: ../files/setup.sh
+    dest: /usr/local/sbin/setup_kusanagi.sh
+    owner: root
+    group: root
+    mode: 0744
   when: not stat_setup_kusanagi.stat.exists
 
+- name: init conf
+  file: path=/etc/kusanagi.conf state=touch owner=root group=root mode=0644
+
 - name: execute initializer
-  shell: "/bin/bash /usr/local/sbin/setup_kusanagi.sh"
+  shell: "/bin/bash /usr/local/sbin/setup_kusanagi.sh 2>&1 | tee /root/setup_kusanagi.log"
   when: not stat_setup_kusanagi.stat.exists
+  environment:
+    LANG: C
+    LANGUAGE: C
+    LC_ALL: C
+
+- name: check provision helper
+  stat:
+    path: "/usr/local/sbin/provision-helper.sh"
+  register: stat_provision_helper
+
+- name: copy provision helper
+  copy:
+    src: ../files/provision-helper.sh
+    dest: /usr/local/sbin/provision-helper.sh
+    owner: root
+    group: root
+    mode: 0744
+  when: not stat_provision_helper.stat.exists
+
